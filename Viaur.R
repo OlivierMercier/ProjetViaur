@@ -1,16 +1,20 @@
+# ouverture de la librairie tidyverse
+library(tidyverse)
+
 # le fichier
-viaur <- "ProjetViaur/data_viaur/viaur_donnees_brutes.xlsx"
-file.exists(viaur)
+viaur <- "data_viaur/viaur_donnees_brutes.xlsx"
+file.exists (viaur)
 
 # les feuilles
-readxl::excel_sheets(viaur)
+readxl::excel_sheets("data_viaur/viaur_donnees_brutes.xlsx")
 
-Coffrets <- readxl::read_xlsx(path = viaur,
+detection <- readxl::read_xlsx(path = viaur,
                               sheet = "Coffrets")
-
-synthese_vivarmor <- readxl::read_xlsx(path = chemin,
-                                       sheet = "synthese")
-# Exporter en Rdata :
-
-save (viaur_donnees_brutes, file = "ProjetViaur/donnes_traitees_viaur")
-
+marquage <- readxl::read_xlsx(path = viaur,
+                               sheet = "Marquages")
+mouchard <- readxl::read_xlsx(path = viaur,
+                               sheet = "Mouchards")
+hauteureau <- readxl::read_xlsx(path = viaur,
+                               sheet = "HauteurEau")
+temperature <- readxl::read_xlsx(path = viaur,
+                               sheet = "Température")
