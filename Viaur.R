@@ -18,3 +18,23 @@ hauteureau <- readxl::read_xlsx(path = viaur,
                                sheet = "HauteurEau")
 temperature <- readxl::read_xlsx(path = viaur,
                                sheet = "Température")
+
+# Exporter en Rdata :
+save(viaur, file = "viaur.RData")
+
+detection <- detection %>% 
+  mutate(Marque=str_to_upper(Marque)) %>% 
+  rename(Code=Marque)
+
+
+
+identification <- detection %>% 
+  left_join(y=marquage) %>% 
+  filter(!is.na(Espèce))
+
+n_poissons_detectes<- n_distinct(identification$Code)
+
+id_poissons_detectes<- identification %>% 
+  select(Code, Espèce) %>% 
+  distinct()
+
