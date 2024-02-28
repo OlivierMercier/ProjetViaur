@@ -22,16 +22,18 @@ temperature <- readxl::read_xlsx(path = viaur,
 # Exporter en Rdata :
 save(viaur, file = "viaur.RData")
 
+#convertir minuscule en majuscule
 detection <- detection %>% 
   mutate(Marque=str_to_upper(Marque)) %>% 
   rename(Code=Marque)
 
 
-
+#jointure entre 2 colonnes et 2 feuilles 
 identification <- detection %>% 
   left_join(y=marquage) %>% 
   filter(!is.na(Espèce))
 
+#nombre de poissons différents détectés sur au moins 1 des 3 antennes
 n_poissons_detectes<- n_distinct(identification$Code)
 
 id_poissons_detectes<- identification %>% 
