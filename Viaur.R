@@ -88,7 +88,9 @@ ggplot(data = tri_poissons_code %>%
          ) +
   aes(x = Temps, y = Lecteur )+
   geom_point() +
-  geom_line()
+  geom_line()+
+  scale_y_continuous(name="Lecteur", breaks = 1:3, labels = c("RIVIERE","AVAL", "AMONT"))
+graphique_ind
 
 
 #faire un graphique pour tous les codes
@@ -99,6 +101,10 @@ graphique_all <-
   aes(x = Temps, y = Lecteur )+
   geom_point() +
   geom_line() +
-  facet_wrap(vars (Code))  
+  facet_wrap(vars (Code)) +
+  scale_y_continuous(name="Lecteur", breaks = 1:3, labels = c("RIVIERE","AVAL", "AMONT"))
 graphique_all
+
+
+
 
