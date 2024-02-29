@@ -58,21 +58,47 @@ n_poissons_detectes_ant3<- id_poi_amont %>%
 #parcours de tous les poissons détectés triés par code
 
 
-#jointure entre poissons de l'antenne 3 et toues les détection
+#jointure entre poissons de l'antenne 3 et toutes les détection
 
-tri_poissons_code<- arrange(identification, Code)
-
-#faire un graphique de déplacement par poisson
-library(ggplot2)
-code_ant3 <- n_poissons_detectes_ant3<- id_poi_amont %>% 
-  filter(Lecteur=="AMONT") %>% 
-  select(Code) %>% 
-  distinct()
+tri_poissons_code<- arrange(identification, Code) %>% 
+  mutate(Lecteur = as.factor(Lecteur), 
+         Lecteur = fct_relevel(Lecteur, "RIVIERE", "AVAL" ,   "AMONT"  ))
 
 
+#Nombre d'antenne(s) par poissons
+n_ant_par_poisson<- tri_poissons_code %>% 
+  group_by(Code) %>% 
+  summarise(n_ant=n_distinct(Lecteur))
 
-ggplot(data = tri_poissons_code) +
-    geom_line(aes(x = Temps, y = Lecteur )) +
-    facet_wrap(vars (code_ant3))
+mes_poissons<-n_ant_par_poisson %>% 
+  filter(n_ant ==3) %>% 
+  pull (Code)
 
-  
+
+#faire un graphique individuel à partir d'un code
+graphique_ind <-
+ggplot(data = tri_poissons_code %>% 
+         filter(Code == "8000E1349EAB9700") %>% 
+         # mutate(Lecteur = case_when(
+         #   Lecteur == "AMONT"~1,
+         #   Lecteur == "AVAL"~2,
+         #   Lecteur == "RIVIERE"~3,
+         # )
+         mutate(Lecteur = as.numeric(Lecteur))
+         ) +
+  aes(x = Temps, y = Lecteur )+
+  geom_point() +
+  geom_line()
+
+
+#faire un graphique pour tous les codes
+graphique_all <-
+  ggplot(data = tri_poissons_code %>% 
+           filter(Code %in% mes_poissons) %>% 
+          mutate(Lecteur = as.numeric(Lecteur))) +
+  aes(x = Temps, y = Lecteur )+
+  geom_point() +
+  geom_line() +
+  facet_wrap(vars (Code))  
+graphique_all
+
