@@ -54,3 +54,15 @@ n_poissons_detectes_ant3<- id_poi_amont %>%
   filter(Lecteur=="AMONT") %>% 
   select(Code, Espèce) %>% 
   distinct()
+
+#parcours de tous les poissons détectés triés par code
+tri_poissons_code<- arrange(identification, Code)
+
+#faire un graphique de déplacement par poisson
+library(ggplot2)
+
+ggplot(data = tri_poissons_code) +
+    geom_line(aes(x = Temps, y = Lecteur )) +
+    facet_wrap(vars (Code))
+
+  
