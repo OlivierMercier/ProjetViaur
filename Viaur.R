@@ -79,13 +79,12 @@ mes_poissons<-n_ant_par_poisson %>%
 graphique_ind <-
 ggplot(data = tri_poissons_code %>% 
          filter(Code == "8000E1349EAB9700") %>% 
-         # mutate(Lecteur = case_when(
-         #   Lecteur == "AMONT"~1,
-         #   Lecteur == "AVAL"~2,
-         #   Lecteur == "RIVIERE"~3,
-         # )
-         mutate(Lecteur = as.numeric(Lecteur))
-         ) +
+         
+         mutate(Lecteur = as.numeric(Lecteur))) +
+  # OU mutate(Lecteur = case_when(
+  #   Lecteur == "AMONT"~1,
+  #   Lecteur == "AVAL"~2,
+  #   Lecteur == "RIVIERE"~3,)
   aes(x = Temps, y = Lecteur )+
   geom_point() +
   geom_line()+
