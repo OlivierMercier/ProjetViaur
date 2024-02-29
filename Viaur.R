@@ -40,3 +40,17 @@ id_poissons_detectes<- identification %>%
   select(Code, Espèce) %>% 
   distinct()
 
+library(tidyverse)
+getwd()
+load(file = "./viaur.RData")
+
+#jointure entre 2 colonnes et 2 feuilles 
+id_poi_amont <- detection %>% 
+  left_join(y=marquage) %>% 
+  filter(!is.na(Espèce))
+
+#nombre de poissons différents détectés sur l'antenne 3
+n_poissons_detectes_ant3<- id_poi_amont %>% 
+  filter(Lecteur=="AMONT") %>% 
+  select(Code, Espèce) %>% 
+  distinct()
