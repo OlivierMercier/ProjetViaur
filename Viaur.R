@@ -56,13 +56,23 @@ n_poissons_detectes_ant3<- id_poi_amont %>%
   distinct()
 
 #parcours de tous les poissons détectés triés par code
+
+
+#jointure entre poissons de l'antenne 3 et toues les détection
+
 tri_poissons_code<- arrange(identification, Code)
 
 #faire un graphique de déplacement par poisson
 library(ggplot2)
+code_ant3 <- n_poissons_detectes_ant3<- id_poi_amont %>% 
+  filter(Lecteur=="AMONT") %>% 
+  select(Code) %>% 
+  distinct()
+
+
 
 ggplot(data = tri_poissons_code) +
     geom_line(aes(x = Temps, y = Lecteur )) +
-    facet_wrap(vars (Code))
+    facet_wrap(vars (code_ant3))
 
   
