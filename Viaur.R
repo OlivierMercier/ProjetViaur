@@ -1,11 +1,13 @@
 # ouverture de la librairie tidyverse
 library(tidyverse)
+library(readxl)
 
 # le fichier
 viaur <- "data_viaur/viaur_donnees_brutes.xlsx"
 file.exists (viaur)
 
 # les feuilles
+
 readxl::excel_sheets("data_viaur/viaur_donnees_brutes.xlsx")
 
 detection <- readxl::read_xlsx(path = viaur,
@@ -55,6 +57,8 @@ n_poissons_detectes_ant3<- id_poi_amont %>%
   select(Code, Espèce) %>% 
   distinct()
 
+
+
 #parcours de tous les poissons détectés triés par code
 
 
@@ -103,6 +107,9 @@ graphique_all <-
   facet_wrap(vars (Code)) +
   scale_y_continuous(name="Lecteur", breaks = 1:3, labels = c("RIVIERE","AVAL", "AMONT"))
 graphique_all
+
+save(graphique_all,n_poissons_detectes_ant3,
+     file="analyse_viaur/figures_rmarkdown.rda")
 
 
 

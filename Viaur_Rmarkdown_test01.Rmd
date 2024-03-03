@@ -1,0 +1,51 @@
+---
+title: "Viaur_Rmardown_test01"
+author: "OM"
+date: "2024-03-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tableaux de déplacement des poissons ayant atteint l'antenne amont
+```{r echo=FALSE}
+load(     file="analyse_viaur/graphique_all.rda")
+
+```
+```{r echo=FALSE}
+graphique_all
+```
+
+
+## Tableau des poissons ayant atteint l'antenne amont
+
+```{r}
+load(file="analyse_viaur/figures_rmarkdown.rda")
+
+
+library(knitr)
+
+
+kable(head( n_poissons_detectes_ant3, 10))
+
+
+```
+
+```{r}
+load(file="analyse_viaur/figures_rmarkdown.rda")
+
+
+library(knitr)
+
+
+
+n_poissons_detectes_ant3 %>% 
+slice(3:5) %>% 
+  kable()
+
+```
+
+
+
